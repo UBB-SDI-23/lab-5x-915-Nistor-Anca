@@ -23,6 +23,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import AddIcon from "@mui/icons-material/Add";
 
+
 export const AllAnimals = () => {
 	const [loading, setLoading] = useState(false);
 	const [animals, setAnimals] = useState<Animal[]>([]);

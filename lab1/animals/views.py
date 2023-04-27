@@ -3,7 +3,7 @@
 import django_filters
 from django.db.models import Avg
 from django.http import Http404
-from rest_framework import status
+from rest_framework import status, serializers, generics
 from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -12,7 +12,7 @@ from animals.models import Animal, Specie, Area, Job, Employee, Assignment, Attr
 from animals.serializers import AnimalSerializer, SpecieSerializer, AreaSerializer, SpecieSerializer2, \
     AnimalSerializer2, EmployeeSerializer, AssignmentSerializer, JobSerializer, EmployeeSerializer2, JobSerializer2, \
     AssignmentSerializer2, AreaSerializer2, AttractionSerializer2, AttractionSerializer, SpeciesKilogramsSerializer, \
-    JobsSalarySerializer, AnimalSimpleSerializer
+    JobsSalarySerializer, AnimalSimpleSerializer, AnimalSerializerComplex
 
 
 class JobsByAvgSalary(APIView):
@@ -47,7 +47,7 @@ class AnimalFilter(django_filters.FilterSet):
         model = Animal
         fields = ['kilograms']
 
-
+"""
 class AnimalList(APIView):
     serializer_class = AnimalSerializer2
     #def get(self, request, format=None):
@@ -98,8 +98,15 @@ class AnimalDetail(APIView):
         animal = self.get_object(pk)
         animal.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+"""
 
+class AnimalList(generics.ListCreateAPIView):
+    queryset = Animal.objects.all()
+    serializer_class = AnimalSerializerComplex
 
+class AnimalDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Animal.objects.all()
+    serializer_class = AnimalSerializerComplex
 
 class SpecieList(APIView):
         serializer_class = SpecieSerializer2
@@ -382,3 +389,12 @@ class AttractionDetail(APIView):
         attraction = self.get_object(pk)
         attraction.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+class SpeciesForAutocomplete(APIView):
+    serializer_class = SpecieSerializer2
+
+    def get(self, request, *args, **kwargs):
+        query = request.GET.get('query')
+        species = Specie.objects.filter(name__icontains=query).order_by('name')[:20]
+        serializer = SpecieSerializer2(species, many=True)
+        return Response(serializer.data)
+

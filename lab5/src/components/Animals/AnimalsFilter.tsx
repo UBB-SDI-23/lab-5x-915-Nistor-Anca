@@ -62,7 +62,6 @@ export const AnimalFilter= () => {
                                 </TableCell>
                                 <TableCell align="center">{animals.name}</TableCell>
                                 <TableCell align="center">{animals.gender}</TableCell>
-                                <TableCell align="center">{animals.birth_date}</TableCell>
                             </TableRow>
                         ))}
                 </TableBody>

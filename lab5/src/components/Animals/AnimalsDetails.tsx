@@ -3,7 +3,7 @@ import { Container } from "@mui/system";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { BACKEND_API_URL } from "../../constants";
-import { Employee } from "../../models/Animal";
+import { Animal } from "../../models/Animal";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -34,7 +34,7 @@ export const AnimalDetails = () => {
 						</IconButton>{" "}
 					</Toolbar>
 					<h1>Animal Details</h1>
-					<p>Animal Name: {employee?.first_name}</p>
+					<p>Animal Name: {animal?.name}</p>
 					<p>Animal Birth Date: {animal?.birth_date.toString()}</p>
 					<p>Animal Gender: {animal?.gender}</p>
 					<p>Animal Kilograms: {animal?.kilograms}</p>

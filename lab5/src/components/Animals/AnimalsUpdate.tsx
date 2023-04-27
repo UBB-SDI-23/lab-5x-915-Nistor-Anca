@@ -12,8 +12,9 @@ export const UpdateAnimal = () => {
     const navigate = useNavigate();
 
     const [animal, setAnimal] = useState<Animal>({
+        created: new Date("2023-04-20T12:00:00Z"),
         id: parseInt(String(animalId)),
-        namea: "",
+        name: "",
         gender: "",
         birth_date: new Date("2023-04-20T12:00:00Z"),
         kilograms: 0,
@@ -29,6 +30,20 @@ export const UpdateAnimal = () => {
             console.log(error);
         }
     }
+
+
+    useEffect(() => {
+        const fetchAnimal = async () => {
+          try {
+            const response = await axios.get(`${BACKEND_API_URL}/animals/${animalId}/`);
+            setAnimal(response.data);
+          } catch (error) {
+            console.log(error);
+          }
+        };
+        fetchAnimal();
+      }, []);
+      
 
     const handleCancel = (event: { preventDefault: () => void }) => {
         event.preventDefault();
@@ -51,7 +66,6 @@ export const UpdateAnimal = () => {
                             </FormLabel>
                             <TextField
                                 id="name"
-                                // label="First Name"
                                 variant="outlined"
                                 onChange={(event) => setAnimal({ ...animal, name: event.target.value })}
                             />
@@ -104,7 +118,7 @@ export const UpdateAnimal = () => {
                     </form>
                 </CardContent>
                 <CardActions sx={{ justifyContent: "center" }}>
-                    <Button type="submit" onClick={updateEmployee} variant="contained" sx={{ backgroundColor: colors.green[500] }}>Update</Button>
+                    <Button type="submit" onClick={updateAnimal} variant="contained" sx={{ backgroundColor: colors.green[500] }}>Update</Button>
                     <Button onClick={handleCancel} variant="contained" sx={{ backgroundColor: colors.green[500] }}>Cancel</Button>
                 </CardActions>
             </Card>

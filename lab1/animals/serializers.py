@@ -130,4 +130,52 @@ class AttractionSerializer(serializers.ModelSerializer):
         fields = ('__all__')
 
 
+class DynamicFieldsModelSerializer(serializers.ModelSerializer):
+    """
+    A ModelSerializer that takes an additional `fields` argument that
+    controls which fields should be displayed.
+    """
+
+    def __init__(self, *args, **kwargs):
+        kwargs.pop('fields', None)
+        include_fields = kwargs.pop('include_fields', None)
+        exclude_fields = kwargs.pop('exclude_fields', None)
+
+        # Instantiate the superclass normally
+        super().__init__(*args, **kwargs)
+
+        if include_fields is not None:
+            for field in include_fields:
+                self.fields.append(field)
+        if exclude_fields is not None:
+            for field in exclude_fields:
+                split = field.split('__')
+                to_access = self.fields
+                for i in range(len(split)-1):
+                    to_access = to_access.get(split[i])
+                if isinstance(to_access, serializers.ListSerializer):
+                    to_access = to_access.child
+                to_access.fields.pop(split[-1])
+
+
+class AnimalSerializerComplex(DynamicFieldsModelSerializer):
+    specie_id = serializers.IntegerField(write_only=True)
+    specie = SpecieSerializer(read_only=True)
+    name = serializers.CharField(max_length=255)
+    birth_date = serializers.DateField(format='%Y-%m-%d')
+    kilograms = serializers.IntegerField()
+    gender = serializers.CharField(max_length=255)
+    favourite_toy = serializers.CharField(max_length=255)
+
+    def validate_specie_id(self, value):
+        filter = Specie.objects.filter(id=value)
+        if not filter.exists():
+            raise serializers.ValidationError("Specie doesnt exist.")
+        return value
+
+    class Meta:
+        model = Animal
+        fields = ['id', 'created', 'name', 'birth_date', 'kilograms', 'gender', 'favourite_toy', 'specie_id', 'specie']
+
+
 

@@ -1,7 +1,7 @@
 from django.urls import path
 from rest_framework.urlpatterns import format_suffix_patterns
 from animals import views
-from animals.views import SpeciesByAvgWeight, JobsByAvgSalary, AnimalsOrderedByAge
+from animals.views import SpeciesByAvgWeight, JobsByAvgSalary, AnimalsOrderedByAge, SpeciesForAutocomplete
 
 urlpatterns = [
     path('animals/', views.AnimalList.as_view(), name='list-of-animals'),
@@ -30,6 +30,7 @@ urlpatterns = [
     path('species/by-avg-weight/', SpeciesByAvgWeight.as_view(), name='species-by-avg-weight'),
     path('jobs/by-avg-salary/', JobsByAvgSalary.as_view(), name='jobs-by-avg-salary'),
     path('animals/by-age/', AnimalsOrderedByAge.as_view(), name='animals-ordered-by-age'),
+    path("species/autocomplete/", SpeciesForAutocomplete.as_view()),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
