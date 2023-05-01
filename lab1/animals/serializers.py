@@ -49,7 +49,7 @@ class AnimalSerializer(serializers.ModelSerializer):
         fields = ('__all__')
 
 class SpecieSerializer(serializers.ModelSerializer):
-    content = AnimalSerializer2(many=True, read_only=True)
+    content =  AnimalSerializer2(many=True, read_only=True)
     class Meta:
         model = Specie
         fields = ('__all__')

@@ -26,7 +26,7 @@ export const AnimalFilter= () => {
     const [animals, setAnimals] = useState([]);
 
     useEffect(() => {
-    fetch(`${BACKEND_API_URL}/animals-ordered-by-age`)
+    fetch(`${BACKEND_API_URL}/animals/by-age/`)
         .then(res => res.json())
         .then(data => {setAnimals(data); setLoading(false);})
     }, []);
@@ -62,6 +62,7 @@ export const AnimalFilter= () => {
                                 </TableCell>
                                 <TableCell align="center">{animals.name}</TableCell>
                                 <TableCell align="center">{animals.gender}</TableCell>
+                                <TableCell align="center">{animals.birth_date.toString()}</TableCell>
                             </TableRow>
                         ))}
                 </TableBody>

@@ -16,9 +16,9 @@ export const AnimalAdd = () => {
 	const navigate = useNavigate();
 
 	const [animal, setAnimal] = useState<Animal>({
-		created: new Date("2023-04-20T12:00:00Z"),
+		created: new Date(),
 		name: "",
-		birth_date: new Date("2023-04-20T12:00:00Z"),
+		birth_date: new Date(),
 		kilograms: 0,
 		gender: "",
 		favourite_toy: "",
@@ -52,13 +52,19 @@ export const AnimalAdd = () => {
 	const addAnimal = async (event: { preventDefault: () => void }) => {
 		event.preventDefault();
 		try {
-			console.log(animal);
-			await axios.post(`${BACKEND_API_URL}/animals/`, animal);
+			const isoDateString = animal.birth_date.toISOString();
+			const dateString = isoDateString.substr(0, 10);
+			const animalToAdd = {
+				...animal,
+				birth_date: dateString,
+			};
+			await axios.post(`${BACKEND_API_URL}/animals/`, animalToAdd);
 			navigate("/animals");
 		} catch (error) {
 			console.log(error);
 		}
 	};
+	
 
 	const handleInputChange = (event: any, value: any, reason: any) => {
 		console.log("input", value, reason);
@@ -66,7 +72,15 @@ export const AnimalAdd = () => {
 		if (reason === "input") {
 			debouncedFetchSuggestions(value);
 		}
+
+		if (event.target.id === "birth_date") {
+			const isoDateString = new Date(event.target.value).toISOString();
+			const dateString = isoDateString.substr(0, 10);
+			const date = new Date(dateString);
+			setAnimal({ ...animal, birth_date: date });
+		  }
 	};
+
 
 	return (
 		<Container>
@@ -92,8 +106,8 @@ export const AnimalAdd = () => {
 							variant="outlined"
 							fullWidth
 							sx={{ mb: 2 }}
+							type="date"
 							onChange={(event) => {
-								console.log(event.target.value);
 								setAnimal({ ...animal, birth_date: new Date(event.target.value) });
 							  }}
 						/>
