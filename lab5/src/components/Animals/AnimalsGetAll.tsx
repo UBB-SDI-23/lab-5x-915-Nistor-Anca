@@ -74,7 +74,7 @@ export const AllAnimals = () => {
 								<TableCell>#</TableCell>
 								<TableCell align="right">Name</TableCell>
 								<TableCell align="right">Gender</TableCell>
-								<TableCell align="right">Birth date</TableCell>
+								
 								<TableCell align="right">Kilograms</TableCell>
 								<TableCell align="right">Favourite toy</TableCell>
 							</TableRow>
@@ -92,7 +92,7 @@ export const AllAnimals = () => {
 									</TableCell>
 									<TableCell align="right">{animal.name}</TableCell>
 									<TableCell align="right">{animal.gender}</TableCell>
-									<TableCell align="right">{animal.birth_date.toString()}</TableCell>
+									
 									<TableCell align="right">{animal.kilograms}</TableCell>
 									<TableCell align="right">{animal.favourite_toy}</TableCell>
 									<TableCell align="right">
