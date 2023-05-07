@@ -25,11 +25,10 @@ import AddIcon from "@mui/icons-material/Add";
 
 
 export const AllAnimals = () => {
-	const [loading, setLoading] = useState(false);
+	const [loading, setLoading] = useState(true)
 	const [animals, setAnimals] = useState<Animal[]>([]);
 	console.log(animals);
 	useEffect(() => {
-		setLoading(true);
 		fetch(`${BACKEND_API_URL}/animals`)
 			.then((response) => response.json())
 			.then((data) => {
