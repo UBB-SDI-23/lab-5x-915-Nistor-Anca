@@ -67,23 +67,7 @@ export const AllAnimals = () => {
 					</Button>
 				</Toolbar>
 			)}
-			{!loading && animals.length > 0 && (
-				<TableContainer component={Paper}>
-					<Table sx={{ minWidth: 650 }} aria-label="simple table">
-						<TableHead>
-							<TableRow>
-								<TableCell>#</TableCell>
-								<TableCell align="right">Name</TableCell>
-								<TableCell align="right">Gender</TableCell>
-								<TableCell align="right">Birth date</TableCell>
-								<TableCell align="right">Kilograms</TableCell>
-								<TableCell align="right">Favourite toy</TableCell>
-							</TableRow>
-						</TableHead>
-						
-					</Table>
-				</TableContainer>
-			)}
+			
 		</Container>
 	);
 };
