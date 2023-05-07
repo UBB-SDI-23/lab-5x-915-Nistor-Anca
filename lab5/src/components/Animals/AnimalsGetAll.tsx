@@ -51,9 +51,9 @@ export const AllAnimals = () => {
 	return (
 		<Container>
 			<h1>All animals</h1>
-
-			{loading && <CircularProgress />}
 			{!loading && animals.length === 0 && <p>No animals found</p>}
+			{loading && <CircularProgress />}
+			
 			{!loading && animals.length > 0  &&(
 				<Toolbar>
 					<IconButton component={Link} sx={{ mr: 3 }} to={`/animals/add`}>
