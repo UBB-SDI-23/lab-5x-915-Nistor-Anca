@@ -56,11 +56,7 @@ export const AllAnimals = () => {
 			{!loading && animals.length === 0 && <p>No animals found</p>}
 			{!loading && (
 				<Toolbar>
-					<IconButton component={Link} sx={{ mr: 3 }} to={`/animals/add`}>
-						<Tooltip title="Add a new animal" arrow>
-							<AddIcon color="primary" />
-						</Tooltip>
-					</IconButton>
+					
 					<Button
 						onClick={orderByKilograms}
 					>Order By Kilograms
