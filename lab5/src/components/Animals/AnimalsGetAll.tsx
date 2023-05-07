@@ -35,7 +35,7 @@ export const AllAnimals = () => {
 			.then((data) => {
 				setAnimals(data);
 				setLoading(false);
-				
+				console.log(data);
 			});
 	}, []);
 
@@ -51,10 +51,10 @@ export const AllAnimals = () => {
 	return (
 		<Container>
 			<h1>All animals</h1>
-			{!loading && animals.length === 0 && <p>No animals found</p>}
+
 			{loading && <CircularProgress />}
-			
-			{!loading && animals.length > 0  &&(
+			{!loading && animals.length === 0 && <p>No animals found</p>}
+			{!loading && animals.length > 0 && (
 				<Toolbar>
 					<IconButton component={Link} sx={{ mr: 3 }} to={`/animals/add`}>
 						<Tooltip title="Add a new animal" arrow>
