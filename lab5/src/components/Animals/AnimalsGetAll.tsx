@@ -16,7 +16,7 @@ import {
 import React from "react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { BACKEND_API_URL } from "../../constants";
+import { BACKEND_API_URL, DEV_BACKEND_API_URL } from "../../constants";
 import { Animal } from "../../models/Animal";
 import ReadMoreIcon from "@mui/icons-material/ReadMore";
 import EditIcon from "@mui/icons-material/Edit";
@@ -29,7 +29,7 @@ export const AllAnimals = () => {
 	const [animals, setAnimals] = useState<Animal[]>([]);
 	console.log(animals);
 	useEffect(() => {
-		fetch(`${BACKEND_API_URL}/animals`)
+		fetch(`${DEV_BACKEND_API_URL}/animals`)
 			.then((response) => response.json())
 			.then((data) => {
 				setAnimals(data);

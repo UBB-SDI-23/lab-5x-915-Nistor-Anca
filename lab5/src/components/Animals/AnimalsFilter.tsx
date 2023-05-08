@@ -17,7 +17,7 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";
-import { BACKEND_API_URL } from "../../constants";
+import { BACKEND_API_URL, DEV_BACKEND_API_URL } from "../../constants";
 import { Animal } from "../../models/Animal";
 
 
@@ -26,7 +26,7 @@ export const AnimalFilter= () => {
     const [animals, setAnimals] = useState([]);
 
     useEffect(() => {
-    fetch(`${BACKEND_API_URL}/animals/by-age/`)
+    fetch(`${DEV_BACKEND_API_URL}/animals/by-age/`)
         .then(res => res.json())
         .then(data => {setAnimals(data); setLoading(false);})
     }, []);
