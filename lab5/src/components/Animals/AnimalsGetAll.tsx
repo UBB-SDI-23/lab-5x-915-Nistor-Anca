@@ -29,7 +29,7 @@ export const AllAnimals = () => {
 	const [animals, setAnimals] = useState<Animal[]>([]);
 	console.log(animals);
 	useEffect(() => {
-		fetch(`${DEV_BACKEND_API_URL}/animals`)
+		fetch(`${BACKEND_API_URL}/animals`)
 			.then((response) => response.json())
 			.then((data) => {
 				setAnimals(data);

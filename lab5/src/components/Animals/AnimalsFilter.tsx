@@ -26,7 +26,7 @@ export const AnimalFilter= () => {
     const [animals, setAnimals] = useState([]);
 
     useEffect(() => {
-    fetch(`${DEV_BACKEND_API_URL}/animals/by-age/`)
+    fetch(`${BACKEND_API_URL}/animals/by-age/`)
         .then(res => res.json())
         .then(data => {setAnimals(data); setLoading(false);})
     }, []);
